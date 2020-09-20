@@ -1,0 +1,21 @@
+---
+- name: Install, start  and Enable Apache webserver
+  hosts: web
+  tasks:
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: present
+
+    - name: push index.html file
+      copy:
+        src: ../files/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+    - name: start and Enable httpd service
+      service:
+         name: httpd
+         state: started
+         enabled: true
